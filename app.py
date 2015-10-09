@@ -4,4 +4,7 @@ if __name__ == "__main__":
 	net = Network()
 	net.setup()
 	print("this computer is connected and has this addresse %s/%s" % (net.my_addr, net.my_netmask))
-	net.scan_network()
+	net.get_hosts()
+	# this next one needs root privileges 
+	net.tcp_syn_scan()
+	net.tcp_connect_scan()
