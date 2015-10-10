@@ -53,10 +53,36 @@ class Network:
 		print 
 		print("Scannig the network for live hosts using Full TCP connection to detect open TCP ports")
 		pp = pprint.PrettyPrinter(indent=2)
-		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-sS'))
+		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-sT'))
 
-	def scan_network(self):
+	def udp_scan(self):
+		"""UDP CONNECT Scan"""
 		nm = nmap.PortScanner()
-		print(self.my_addr+'/'+self.my_netmask)
+		print 
+		print("Scannig the network for live hosts and their open UDP ports")
 		pp = pprint.PrettyPrinter(indent=2)
-		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-n -sP -PE -PA21,23,80,3389'))
+		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-sU'))
+
+	def fin_scan(self):
+		""" TCP Scan using FIN packets"""
+		nm = nmap.PortScanner()
+		print 
+		print("Scannig the network for live hosts with FIN packets to bypass firewalls IDS, IPS ")
+		pp = pprint.PrettyPrinter(indent=2)
+		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-sF'))
+
+	def version_detection(self):
+		""" Version detection"""
+		nm = nmap.PortScanner()
+		print 
+		print("Scannig the network for live hosts with SYN TCP packets then detecting the host's version")
+		pp = pprint.PrettyPrinter(indent=2)
+		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-sV'))
+
+	def idle_scan(self):
+		""" Idle scanning Stealth mode ;) """
+		nm = nmap.PortScanner()
+		print 
+		print("Scanning the network by sending packets using a fake IP @")
+		pp = pprint.PrettyPrinter(indent=2)
+		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-sI 192.168.0.1 -Pn'))		
