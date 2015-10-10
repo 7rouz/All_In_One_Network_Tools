@@ -8,3 +8,7 @@ if __name__ == "__main__":
 	# this next one needs root privileges 
 	net.tcp_syn_scan()
 	net.tcp_connect_scan()
+	net.udp_scan()
+	net.fin_scan()
+	net.version_detection()
+	net.idle_scan()
