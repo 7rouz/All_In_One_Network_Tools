@@ -85,7 +85,7 @@ class Network:
 		print 
 		print("Scanning the network by sending packets using a fake IP @")
 		pp = pprint.PrettyPrinter(indent=2)
-		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-sI 192.168.0.1 -Pn'))
+		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-Pn -p- -sI www.developpez.com'))
 
 	def os_detection(self):
 		""" Detecting OS of the host"""
@@ -94,3 +94,27 @@ class Network:
 		print("Scanning the network by sending packets using a fake IP @")
 		pp = pprint.PrettyPrinter(indent=2)
 		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-O'))
+
+	def firewall_detector(self):
+		""" Detecting firewalls"""
+		nm = nmap.PortScanner()
+		print 
+		print("Scanning the network hosts for firewalls")
+		pp = pprint.PrettyPrinter(indent=2)
+		pp.pprint(nm.scan(hosts=self.my_addr+'/'+str(iptools.ipv4.netmask2prefix(self.my_netmask)), arguments='-sA'))
+
+	def fast_scan(self, host):
+		""" Fast scan"""
+		nm = nmap.PortScanner()
+		print 
+		print("I am in hurry fast scan this %s please" % host)
+		pp = pprint.PrettyPrinter(indent=2)
+		pp.pprint(nm.scan(hosts=host), arguments='-F')
+
+	def interfaces(self):
+		""" host interfaces"""
+		nm = nmap.PortScanner()
+		print 
+		print("show interfaces")
+		pp = pprint.PrettyPrinter(indent=2)
+		pp.pprint(nm.scan(hosts='--iflist'))
